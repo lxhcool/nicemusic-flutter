@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'mock/post.dart';
+import 'package:nicemusic/pages/home.dart';
 import 'mock/iconfont.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Home(),
+      home: HomePage(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Color.fromRGBO(21, 21, 27, 1.0)),
     );
@@ -23,42 +23,11 @@ class MyApp extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
-  Widget _listItemBuilder(BuildContext context, int index) {
-    final item = posts[index];
-    return Container(
-        color: Colors.white,
-        margin: EdgeInsets.all(8.0),
-        padding: EdgeInsets.all(8.0),
-        child: Row(
-          children: <Widget>[
-            Image.network(
-              item.imageUrl,
-              width: 100,
-            ),
-            SizedBox(height: 100.0),
-            Column(
-              children: <Widget>[
-                Text(
-                  item.title + '(' + item.author + ')',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Text(
-                  item.description,
-                  softWrap: true,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 12.0),
-                ),
-              ],
-            )
-          ],
-        ));
-  }
 
   Widget _swiperBuilder(BuildContext context, int index) {
     return (Image.network(
-      "http://via.placeholder.com/350x150",
-      fit: BoxFit.fill,
+      "http://p1.music.126.net/HgTufMRMRgWNrWiSlqd3Cw==/109951165052169449.jpg",
+      fit: BoxFit.cover,
     ));
   }
   
@@ -71,27 +40,179 @@ class Home extends StatelessWidget {
         elevation: 30.0,
         centerTitle: true,
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 200.0,
-        child: Swiper(
-          itemBuilder: _swiperBuilder,
-          itemCount: 3,
-          pagination: new SwiperPagination(
-            builder: DotSwiperPaginationBuilder(
-              color: Colors.black54,
-              activeColor: Colors.white,
-            )),
-          control: new SwiperControl(),
-          scrollDirection: Axis.horizontal,
-          autoplay: true,
-          onTap: (index) => print('点击了第$index个')
-        ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(left: 15, right: 15),
+            margin: const EdgeInsets.only(top: 5, bottom: 15),
+            width: MediaQuery.of(context).size.width,
+            height: 150.0,
+            child: Swiper(
+              itemBuilder: _swiperBuilder,
+              itemCount: 3,
+              pagination: SwiperPagination(
+                builder: DotSwiperPaginationBuilder(
+                  color: Color.fromRGBO(255, 255, 255, 0.5),
+                  activeColor: Colors.white,
+                  size: 7.0,
+                  activeSize: 7.0
+                )),
+              scrollDirection: Axis.horizontal,
+              autoplay: true,
+              onTap: (index) => print('点击了第$index个')
+            )
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Container(
+                    width: 55,
+                    height: 55,
+                    margin: const EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 91, 115, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(50.0))
+                    ),
+                    child: Stack(
+                      alignment: const FractionalOffset(0.5, 0.5),
+                      children: <Widget>[
+                        Icon( 
+                          IconFont.nicerili,
+                          color: Color.fromRGBO(255, 255, 255, 1),
+                          size: 26.0,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 12),
+                          child: Text(
+                            '10',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Color.fromRGBO(255, 255, 255, 1),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Text(
+                    '每日推荐',
+                    style: TextStyle(
+                      color: Color.fromRGBO(255, 255, 255, 0.8),
+                      fontSize: 13.0
+                    ),
+                  )
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Container(
+                    width: 55,
+                    height: 55,
+                    padding: const EdgeInsets.only(top: 4, left: 3),
+                    margin: const EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 91, 115, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(50.0))
+                    ),
+                    child: Icon( 
+                      IconFont.niceyinleliebiao,
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      size: 20.0,
+                    ),
+                  ),
+                  Text(
+                    '歌单',
+                    style: TextStyle(
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      fontSize: 13.0
+                    ),
+                  )
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Container(
+                    width: 55,
+                    height: 55,
+                    margin: const EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 91, 115, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(50.0))
+                    ),
+                    child: Icon( 
+                      IconFont.nicepaihangbang1,
+                      color: Color.fromRGBO(255, 255, 255, 0.6),
+                      size: 24.0,
+                    ),
+                  ),
+                  Text(
+                    '排行榜',
+                    style: TextStyle(
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      fontSize: 13.0
+                    ),
+                  )
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Container(
+                    width: 55,
+                    height: 55,
+                    margin: const EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 91, 115, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(50.0))
+                    ),
+                    child: Icon( 
+                      IconFont.nicegeshou,
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      size: 24.0,
+                    ),
+                  ),
+                  Text(
+                    '歌手',
+                    style: TextStyle(
+                      color: Color.fromRGBO(255, 255, 255, 0.8),
+                      fontSize: 13.0
+                    ),
+                  )
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Container(
+                    width: 55,
+                    height: 55,
+                    margin: const EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 91, 115, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(50.0))
+                    ),
+                    child: Icon( 
+                      IconFont.niceshipin1,
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      size: 24.0,
+                    ),
+                  ),
+                  Text(
+                    '视频',
+                    style: TextStyle(
+                      color: Color.fromRGBO(255, 255, 255, 0.8),
+                      fontSize: 13.0
+                    ),
+                  )
+                ],
+              )
+            ],
+          )
+        ],
       )
     );
   }
 }
-
 
 // Title
 class Title extends StatelessWidget {
