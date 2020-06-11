@@ -49,7 +49,11 @@ class _HomePageState extends State<HomePage> {
             context: context,
             removeTop: true,
             child: ListView(
-              children: <Widget>[_buildBanner(context), _buildTab(context)],
+              children: <Widget>[
+                _buildBanner(context), 
+                _buildTab(context),
+                _personalized(context)
+              ],
             ),
           ))
         ],
@@ -224,7 +228,7 @@ class _HomePageState extends State<HomePage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: tabs.map((item) {
         return Container(
-          padding: EdgeInsets.only(left: 22.w, right: 22.w),
+          padding: EdgeInsets.only(left: 22.w, right: 22.w, bottom: 40.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -271,6 +275,43 @@ class _HomePageState extends State<HomePage> {
         );
         // return
       }).toList(),
+    );
+  }
+
+  /// 推荐歌单
+  Widget _personalized(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 22.w, right: 22.w),
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                '推荐歌单',
+                style: TextStyle(
+                  color: Color.fromRGBO(255, 255, 255, 1.0),
+                  fontSize: 32.sp
+                ),
+              ),
+              Container(
+                decoration: new BoxDecoration(
+                  border: Border.all(color: Color.fromRGBO(255, 255, 255, 0.6), width: 1.w),
+                  borderRadius: BorderRadius.circular((100.w))),
+                padding: EdgeInsets.only(top: 7.w, bottom: 7.w, left: 22.w, right: 22.w),
+                child: Text(
+                  '歌单广场',
+                  style: TextStyle(
+                    color: Color.fromRGBO(255, 255, 255, 1.0),
+                    fontSize: 24.sp
+                  )
+                ),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }
