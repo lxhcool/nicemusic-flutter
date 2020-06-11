@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(right: 30.w),
+          margin: EdgeInsets.only(left: 22.w),
           child: Icon(
               IconFont.nicecaidan,
               color: Color.fromRGBO(255, 255, 255, 0.6),
@@ -82,11 +82,11 @@ class _HomePageState extends State<HomePage> {
             child: Container(
                 decoration: new BoxDecoration(
                     color: Color.fromRGBO(255, 255, 255, 0.1),
-                    borderRadius: BorderRadius.circular((40.w))
+                    borderRadius: BorderRadius.circular((100.w))
                 ),
-                height: 80.w,
+                height: 70.w,
                 alignment: Alignment.center,
-                padding: EdgeInsets.only(left: 40.w, right: 40.w),
+                margin: EdgeInsets.only(left: 15.w, right: 15.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
             )
         ),
         Container(
-            margin: EdgeInsets.only(left: 30.w),
+            margin: EdgeInsets.only(right: 22.w),
             child: Stack(
               alignment: FractionalOffset(1.w, 1.w),
               children: <Widget>[
@@ -168,17 +168,24 @@ class _HomePageState extends State<HomePage> {
   /// banner区域
   Widget _buildBanner (BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(left: 30.w, right: 30.w),
-        margin: EdgeInsets.only(top: 10.w, bottom: 30.w),
+        // padding: EdgeInsets.only(left: 22.w, right: 22.w),
+        margin: EdgeInsets.only(top: 30.w, bottom: 30.w),
         width: MediaQuery.of(context).size.width,
-        height: 300.w,
+        height: 260.w,
         child: bannerList != null ? Swiper(
             itemBuilder: (BuildContext context, int index) {
               BannerItemModel bannerItem = bannerList.list[index];
-              return (Image.network(
-                bannerItem.imageUrl,
-                fit: BoxFit.cover,
-              ));
+              return Container(
+                margin: EdgeInsets.only(left: 15.w, right: 15.w),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.w),
+                  child: FadeInImage.assetNetwork(
+                    placeholder: bannerItem.imageUrl,
+                    image: bannerItem.imageUrl,
+                    fit: BoxFit.cover
+                  ),
+                ),
+              );
             },
             itemCount: bannerList.list.length,
             pagination: SwiperPagination(
@@ -201,54 +208,66 @@ class _HomePageState extends State<HomePage> {
       {
         "title": "每日推荐",
         "icon": IconFont.nicerili,
-        "text": "10"
+        "text": "10",
+        "size": 50.sp,
+        "area": FractionalOffset(0.93.w, 0.85.w)
       },
       {
         "title": "歌单",
-        "icon": IconFont.niceyinleliebiao
+        "icon": IconFont.niceyinleliebiao,
+        "size": 36.sp,
+        "area": FractionalOffset(0.95.w, 0.9.w)
       },
       {
         "title": "排行榜",
-        "icon": IconFont.niceyinleliebiao1
+        "icon": IconFont.nicepaihangbang1,
+        "size":48.sp,
+        "area": FractionalOffset(0.95.w, 0.85.w)
       },
       {
         "title": "歌手",
-        "icon": IconFont.nicegeshou
+        "icon": IconFont.nicegeshou,
+        "size": 45.sp,
+        "area": FractionalOffset(0.95.w, 0.85.w)
       },
       {
         "title": "视频",
-        "icon": IconFont.niceshipin1
+        "icon": IconFont.niceshipin1,
+        "size": 45.sp,
+        "area": FractionalOffset(0.93.w, 0.85.w)
       }
     ];
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: tabs.map((item) {
         return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              width: 110.w,
-              height: 110.w,
-              margin: EdgeInsets.only(bottom: 10.w),
+              width: 100.w,
+              height: 100.w,
+              margin: EdgeInsets.only(bottom: 15.w),
               decoration: BoxDecoration(
                   color: Color.fromRGBO(255, 91, 115, 1),
                   borderRadius: BorderRadius.all(Radius.circular(110.w))
               ),
               child: Stack(
-                alignment: FractionalOffset(1.w, 1.w),
+                alignment: item["area"],
                 children: <Widget>[
                   Icon(
                     item["icon"],
                     color: Color.fromRGBO(255, 255, 255, 1),
-                    size: 52.sp,
+                    size: item["size"],
                   ),
                   Visibility(
                     visible: item["text"] != null,
                     child: Container(
-                      margin: EdgeInsets.only(top: 24.w),
+                      margin: EdgeInsets.only(top: 22.w),
                       child: Text(
                         '10',
                         style: TextStyle(
-                          fontSize: 20.sp,
+                          fontSize: 18.sp,
                           color: Color.fromRGBO(255, 255, 255, 1),
                         ),
                       ),
