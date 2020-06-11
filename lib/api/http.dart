@@ -12,7 +12,7 @@ class Http {
 
   Http () {
     options = BaseOptions(
-      baseUrl: "http://10.70.1.33:3000",
+      baseUrl: "https://nicemusic-api.lxhcool.cn",
       connectTimeout: 10000,
       receiveTimeout: 5000,
       headers: {},
