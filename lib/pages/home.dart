@@ -8,11 +8,10 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 
 class HomePage extends StatefulWidget {
   @override
- _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
   BannerModel bannerList;
 
   @override
@@ -22,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     getBanner();
   }
 
-  getBanner () async {
+  getBanner() async {
     var response = await Http().get('/banner');
     BannerModel _bannerList = BannerModel.fromJson(response);
 
@@ -36,54 +35,45 @@ class _HomePageState extends State<HomePage> {
     ScreenUtil.init(context, width: 750, height: 1334);
     return Scaffold(
         backgroundColor: Color.fromRGBO(21, 21, 27, 1.0),
-        body: _buildBody(context)
-    );
+        body: _buildBody(context));
   }
 
   /// 页面主体框架
-  Widget _buildBody (BuildContext context) {
+  Widget _buildBody(BuildContext context) {
     return SafeArea(
       child: Column(
         children: <Widget>[
           _buildTitle(context),
           Expanded(
-            child: MediaQuery.removePadding(
-              context: context,
-              removeTop: true,
-              child: ListView(
-                children: <Widget>[
-                  _buildBanner(context),
-                  _buildTab(context)
-                ],
-              ),
-            )
-          )
+              child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: ListView(
+              children: <Widget>[_buildBanner(context), _buildTab(context)],
+            ),
+          ))
         ],
       ),
     );
   }
 
   /// 标题区域
-  Widget _buildTitle (BuildContext context) {
+  Widget _buildTitle(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(left: 22.w),
-          child: Icon(
-              IconFont.nicecaidan,
-              color: Color.fromRGBO(255, 255, 255, 0.6),
-              size: 46.sp
-          ),
+          child: Icon(IconFont.nicecaidan,
+              color: Color.fromRGBO(255, 255, 255, 0.6), size: 46.sp),
         ),
         Expanded(
             flex: 1,
             child: Container(
                 decoration: new BoxDecoration(
                     color: Color.fromRGBO(255, 255, 255, 0.1),
-                    borderRadius: BorderRadius.circular((100.w))
-                ),
+                    borderRadius: BorderRadius.circular((100.w))),
                 height: 70.w,
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(left: 15.w, right: 15.w),
@@ -92,23 +82,18 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.only(right: 20.w),
-                      child: Icon(
-                          IconFont.nicesearch,
+                      child: Icon(IconFont.nicesearch,
                           color: Color.fromRGBO(255, 255, 255, 0.6),
-                          size: 32.sp
-                      ),
+                          size: 32.sp),
                     ),
                     Text(
                       '房间 - 刘瑞琦',
                       style: TextStyle(
                           color: Color.fromRGBO(255, 255, 255, 0.6),
-                          fontSize: 32.sp
-                      ),
+                          fontSize: 32.sp),
                     )
                   ],
-                )
-            )
-        ),
+                ))),
         Container(
             margin: EdgeInsets.only(right: 22.w),
             child: Stack(
@@ -155,55 +140,53 @@ class _HomePageState extends State<HomePage> {
                 CircleAvatar(
                   radius: 32.w,
                   backgroundImage: NetworkImage(
-                      'http://p2.music.126.net/HdtEacHZAidKtzPCp7Dtfg==/109951163942046079.jpg?param='
-                  ),
+                      'http://p2.music.126.net/HdtEacHZAidKtzPCp7Dtfg==/109951163942046079.jpg?param='),
                 ),
               ],
-            )
-        ),
+            )),
       ],
     );
   }
 
   /// banner区域
-  Widget _buildBanner (BuildContext context) {
+  Widget _buildBanner(BuildContext context) {
     return Container(
         // padding: EdgeInsets.only(left: 22.w, right: 22.w),
         margin: EdgeInsets.only(top: 30.w, bottom: 30.w),
         width: MediaQuery.of(context).size.width,
         height: 260.w,
-        child: bannerList != null ? Swiper(
-            itemBuilder: (BuildContext context, int index) {
-              BannerItemModel bannerItem = bannerList.list[index];
-              return Container(
-                margin: EdgeInsets.only(left: 15.w, right: 15.w),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.w),
-                  child: FadeInImage.assetNetwork(
-                    placeholder: bannerItem.imageUrl,
-                    image: bannerItem.imageUrl,
-                    fit: BoxFit.cover
-                  ),
-                ),
-              );
-            },
-            itemCount: bannerList.list.length,
-            pagination: SwiperPagination(
-                builder: DotSwiperPaginationBuilder(
-                    color: Color.fromRGBO(255, 255, 255, 0.5),
-                    activeColor: Colors.white,
-                    size: 14.w,
-                    activeSize: 14.w
-                )),
-            scrollDirection: Axis.horizontal,
-            autoplay: true,
-            onTap: (index) => print('点击了第$index个')
-        ) : Container()
-    );
+        child: bannerList != null
+            ? Swiper(
+                itemBuilder: (BuildContext context, int index) {
+                  BannerItemModel bannerItem = bannerList.list[index];
+                  return Container(
+                    margin: EdgeInsets.only(left: 15.w, right: 15.w),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.w),
+                      child: FadeInImage.assetNetwork(
+                          placeholder: bannerItem.imageUrl,
+                          image: bannerItem.imageUrl,
+                          fit: BoxFit.cover),
+                    ),
+                  );
+                },
+                itemCount: bannerList.list.length,
+                pagination: SwiperPagination(
+                    builder: DotSwiperPaginationBuilder(
+                        color: Color.fromRGBO(255, 255, 255, 0.5),
+                        activeColor: Colors.white,
+                        size: 14.w,
+                        activeSize: 14.w)),
+                scrollDirection: Axis.horizontal,
+                autoplay: true,
+                onTap: (index) => print('点击了第$index个'))
+            : Container());
   }
 
   /// tab区域
-  Widget _buildTab (BuildContext context) {
+  Widget _buildTab(BuildContext context) {
+    final int today = DateTime.now().day;
+    final String day = today.toString();
     List tabs = [
       {
         "title": "每日推荐",
@@ -221,7 +204,7 @@ class _HomePageState extends State<HomePage> {
       {
         "title": "排行榜",
         "icon": IconFont.nicepaihangbang1,
-        "size":48.sp,
+        "size": 48.sp,
         "area": FractionalOffset(0.95.w, 0.85.w)
       },
       {
@@ -238,53 +221,55 @@ class _HomePageState extends State<HomePage> {
       }
     ];
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: tabs.map((item) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: 100.w,
-              height: 100.w,
-              margin: EdgeInsets.only(bottom: 15.w),
-              decoration: BoxDecoration(
+        return Container(
+          padding: EdgeInsets.only(left: 22.w, right: 22.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: 95.w,
+                height: 95.w,
+                margin: EdgeInsets.only(bottom: 15.w),
+                decoration: BoxDecoration(
                   color: Color.fromRGBO(255, 91, 115, 1),
                   borderRadius: BorderRadius.all(Radius.circular(110.w))
-              ),
-              child: Stack(
-                alignment: item["area"],
-                children: <Widget>[
-                  Icon(
-                    item["icon"],
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                    size: item["size"],
-                  ),
-                  Visibility(
-                    visible: item["text"] != null,
-                    child: Container(
-                      margin: EdgeInsets.only(top: 22.w),
-                      child: Text(
-                        '10',
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          color: Color.fromRGBO(255, 255, 255, 1),
+                ),
+                child: Stack(
+                  alignment: item["area"],
+                  children: <Widget>[
+                    Icon(
+                      item["icon"],
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      size: item["size"],
+                    ),
+                    Visibility(
+                      visible: item["text"] != null,
+                      child: Container(
+                        margin: EdgeInsets.only(top: 22.w),
+                        child: Text(
+                          day,
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            Text(
-              item["title"],
-              style: TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 0.8),
-                  fontSize: 26.sp
-              ),
-            )
-          ],
+              Text(
+                item["title"],
+                style: TextStyle(
+                    color: Color.fromRGBO(255, 255, 255, 0.8), fontSize: 26.sp),
+              )
+            ],
+          ),
         );
+        // return
       }).toList(),
     );
   }
